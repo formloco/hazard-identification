@@ -22,6 +22,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper'; 
+import { MatRadioModule } from '@angular/material/radio';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
  
 @NgModule({
   imports: [
@@ -45,7 +49,11 @@ import { MatStepperModule } from '@angular/material/stepper';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule
+    MatStepperModule,
+    MatRadioModule,
+    OverlayModule,
+    MatSlideToggleModule,
+    MatExpansionModule
   ],
   exports:[
     FormsModule,
@@ -68,7 +76,11 @@ import { MatStepperModule } from '@angular/material/stepper';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule
+    MatStepperModule,
+    MatRadioModule,
+    OverlayModule,
+    MatSlideToggleModule,
+    MatExpansionModule
   ],
   providers: []
 })

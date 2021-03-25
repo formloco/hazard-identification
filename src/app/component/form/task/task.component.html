@@ -1,0 +1,131 @@
+<div class="header" fxLayout="column">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          NEW ACTIVITY
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form class="header-form" [formGroup]="headerForm">
+        <div fxLayout="column" fxLayoutAlign="center">
+          <mat-form-field class="example-chip-list">
+            <mat-label>Activities</mat-label>
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let task of headerTasks" [selectable]="selectable" [removable]="removable" (removed)="remove(task)">
+                {{task}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="New activity..." #taskInput [formControl]="taskCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let task of filteredHeaderTasks | async" [value]="task">
+                {{task}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Hazards</mat-label>
+            <mat-select formControlName="headerHazards" multiple #hazardselect>
+              <mat-select-trigger>
+                {{hazardselect.value ? hazardselect.value[0] : ''}}
+                <span *ngIf="hazardselect.value?.length > 1" class="example-additional-selection">
+                  (+{{hazardselect.value.length - 1}} {{hazardselect.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let hazard of hazardList" [value]="hazard">{{hazard}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Severity</mat-label>
+            <mat-select formControlName="headerSeverity" name="severity">
+              <mat-option *ngFor="let val of severities" [value]="val.value">
+                {{val.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Probability</mat-label>
+            <mat-select formControlName="headerProbability" name="probabaility">
+              <mat-option *ngFor="let val of probabilities" [value]="val.value">
+                {{val.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column">
+          <button mat-raised-button (click)="addTask()" color="primary">
+            Add Task to List
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <form *ngIf="hazardsForm.value.length > 1" class="header-form" [formGroup]="hazardsForm">
+    <ng-container formArrayName="values">
+      <div fxLayout="column" *ngFor="let _ of values.controls; index as i">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                RISK LEVEL IS CRITICAL - HAZARD POSSIBILTY ALMOST CERTAIN
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div [formGroupName]="i" fxLayout="column" fxLayoutAlign="center">
+              <mat-form-field>
+                <mat-label>Tasks</mat-label>
+                <mat-chip-list #chipList aria-label="Task selection">
+                  <mat-chip *ngFor="let task of tasks[i]" [selectable]="selectable" [removable]="removable" (removed)="remove(task, i)">
+                    {{task}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="New Task..." #taskInput formControlName="tasks" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, i)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, i)">
+                  <mat-option *ngFor="let task of filteredTasks" [value]="task">
+                    {{task}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Hazards</mat-label>
+                <mat-select formControlName="hazards" multiple #hazardselect>
+                  <mat-select-trigger>
+                    {{hazardselect.value ? hazardselect.value[0] : ''}}
+                    <span *ngIf="hazardselect.value?.length > 1" class="example-additional-selection">
+                      (+{{hazardselect.value.length - 1}} {{hazardselect.value?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let hazard of hazardList" [value]="hazard">{{hazard}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Severity</mat-label>
+                <mat-select formControlName="severity" name="severity">
+                  <mat-option *ngFor="let val of severities" [value]="val.value">
+                    {{val.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Probability</mat-label>
+                <mat-select formControlName="probability" name="probabaility">
+                  <mat-option *ngFor="let val of probabilities" [value]="val.value">
+                    {{val.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="column">
+              <button mat-raised-button (click)="addHazards()" color="primary">
+                Update
+              </button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </ng-container>
+  </form>
+</div>

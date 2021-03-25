@@ -1,0 +1,20 @@
+<div class="text-color" fxLayoutAlign="space-around center">
+  <h4>HAZARD ID & NEAR MISS SUBMISSION (HID)</h4>
+</div>
+<mat-horizontal-stepper [linear]=true #stepper>
+  <mat-step [stepControl]="companyForm">
+    <app-company [companyForm]=companyForm></app-company>
+  </mat-step>
+  <mat-step [stepControl]="hazardsForm">
+    <app-task [hazardsForm]=hazardsForm></app-task>
+  </mat-step>
+  <mat-step [stepControl]="jobDetailForm">
+    <app-job-details [jobDetailForm]=jobDetailForm></app-job-details>
+  </mat-step>
+  <mat-step [stepControl]="signOffForm">
+    <app-sign-off [signOffForm]=signOffForm></app-sign-off>
+  </mat-step>
+</mat-horizontal-stepper>
+<footer>
+  <app-footer (getHistory)=getHistory()></app-footer>
+</footer>

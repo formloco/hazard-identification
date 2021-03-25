@@ -1,0 +1,40 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <form class="form-container" [formGroup]="companyForm">
+    <div fxLayout="column">
+      <div fxLayoutAlign="space-around center">
+        <mat-checkbox class="text-color" formControlName="hazardIdentification" labelPosition="after">HAZARD IDENTIFICATION</mat-checkbox>
+      </div>
+      <br>
+      <div fxLayoutAlign="space-around center">
+        <mat-checkbox class="text-color" formControlName="hazardIdentification" labelPosition="after">NEAR MISS</mat-checkbox>
+      </div>
+      <br>
+      <mat-form-field class="text-color" fxflex>
+        <mat-label>Choose a date</mat-label>
+        <input matInput formControlName="date" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="text-color">
+        <mat-label>Client</mat-label>
+        <mat-select formControlName="client">
+          <!-- <mat-option *ngFor="let client of clients" [value]="client">
+            {{client}}
+          </mat-option> -->
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="text-color" fxFlex>
+        <mat-label>Location</mat-label>
+        <input matInput placeholder="Location" formControlName="location" type="text">
+      </mat-form-field>
+      <mat-form-field class="text-color">
+        <mat-label>Reported By</mat-label>
+        <mat-select formControlName="reportedBy">
+          <!-- <mat-option *ngFor="let client of clients" [value]="client">
+              {{client}}
+            </mat-option> -->
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
